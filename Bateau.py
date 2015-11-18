@@ -1,6 +1,5 @@
-class Bateau():
-    def __init__(self, orientation,longueur, coordonnee):
+class Bateau:
+    def __init__(self, orientation,longueur, coords):
         self.orientation = orientation
         self.longueur = longueur
-        self.coordonnee = coordonnee
-    def troll(self):
+        self.coords = coords
