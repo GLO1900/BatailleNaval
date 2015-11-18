@@ -3,4 +3,4 @@ class Bateau():
         self.orientation = orientation
         self.longueur = longueur
         self.coordonnee = coordonnee
-    def troll(self):
+
