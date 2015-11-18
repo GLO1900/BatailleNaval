@@ -1,4 +1,4 @@
-DEFAULT_SIZE = 10
+DEFAULT_SIZE = 15
 DEFAULT_VALUE = False
 
 class Grille:
