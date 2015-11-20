@@ -21,5 +21,3 @@ class Bateau():
 
     def getCoordonnee(self):
         return self.coordonnee
-    def test(self):
-        return None
