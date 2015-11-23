@@ -1,9 +1,13 @@
-import Bateau
+from Bateau import Bateau
 
-
-class Joueur(Bateau):
+class Joueur():
     def __init__(self, nom):
-        self.listeBateau = [self.Bateau(0, 5, (0, 0), "Porte-Avion"), self.Bateau(0, 4, (0, 0), "Croiseur"),
-                            self.Bateau(0, 3, (0, 0), "Contre-Torpilleur"), self.Bateau(0, 3, (0, 0), "Sous-Marin"),
-                            self.Bateau(0, 2, (0, 0), "Torpilleur")]
+        self.listeBateau = [Bateau(0,2,(0,0),'Torpilleur'),Bateau(0,3,(0,0),'Contre-Torpilleur')]
         self.nom = nom
+    def __str__(self):
+        string = ''
+        string += self.nom
+        string += '\n'
+        for b in self.listeBateau:
+            string += b.nom
+        return string
