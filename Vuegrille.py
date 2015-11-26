@@ -35,8 +35,8 @@ class Vuegrille:
             animationGrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
             animationGrille.setx(animationGrille.xcor() + DEFAULT_MARGIN)
 
-        animationGrille.setx(-DEFAULT_SCREEN_WIDTH/2 + margin)
-        animationGrille.sety(DEFAULT_SCREEN_HEIGHT/2 - margin)
+        animationGrille.setx(-DEFAULT_SCREEN_WIDTH/2 + DEFAULT_MARGIN)
+        animationGrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
         animationGrille.left(90)
         for i in range(Grille.DEFAULT_SIZE + 1):
             animationGrille.pendown()
@@ -44,19 +44,30 @@ class Vuegrille:
             animationGrille.penup()
             animationGrille.sety(animationGrille.ycor() - DEFAULT_MARGIN)
             animationGrille.setx(-DEFAULT_SCREEN_WIDTH / 2 + DEFAULT_MARGIN)
+        animationGrille.hideturtle()
 
     def getcoords(self, x, y):
         self.screen.onclick(None, btn=1)
         print(x, y)
         grillex = int((x + (DEFAULT_SCREEN_WIDTH/2 - DEFAULT_MARGIN))/DEFAULT_MARGIN)
         grilley = int((y - (DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN))/(-DEFAULT_MARGIN))
-        print(grillex, grilley)
+        print(grillex, grilley, self.getcorner(x, y))
         self.screen.onclick(self.getcoords, btn=1)
         return (grillex, grilley)
-        animationGrille.hideturtle()
+
+    def getcorner(self, x, y):
+        if (x>=0):
+            cornerx = ((int(x/DEFAULT_MARGIN))*DEFAULT_MARGIN)
+        else:
+            cornerx = ((int(x/DEFAULT_MARGIN)-1)*DEFAULT_MARGIN)
+        if (y>=0):
+            cornery = ((int(y/DEFAULT_MARGIN)+1)*DEFAULT_MARGIN)
+        else:
+            cornery = ((int(y/DEFAULT_MARGIN))*DEFAULT_MARGIN)
+        return (cornerx, cornery)
 
 
-class MyTurtles(Turtle):
+class MyTurtles(turtle.Turtle):
     def move(self, x, y):
         self.setx(x)
         self.sety(y)
