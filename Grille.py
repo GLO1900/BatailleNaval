@@ -1,5 +1,5 @@
 DEFAULT_SIZE = 10
-DEFAULT_VALUE = False
+DEFAULT_VALUE = (False, False)
 
 class Grille:
     def __init__(self):
