@@ -6,8 +6,10 @@ DEFAULT_SCREEN_HEIGHT = 600
 DEFAULT_MARGIN = (DEFAULT_SCREEN_WIDTH // 16)
 
 class Vuegrille:
+
     def __init__(self):
         self.screen = turtle.Screen()
+        screen = self.screen
         self.screen.title("Bataille Navale")
         self.screen.listen()
         self.screen.onclick(self.getcoords, btn=1)
@@ -56,7 +58,7 @@ class Vuegrille:
         return (grillex, grilley)
 
     def getcorner(self, x, y):
-        if (x>=0):
+        if (x >= 0):
             cornerx = ((int(x/DEFAULT_MARGIN))*DEFAULT_MARGIN)
         else:
             cornerx = ((int(x/DEFAULT_MARGIN)-1)*DEFAULT_MARGIN)
@@ -67,13 +69,18 @@ class Vuegrille:
         return (cornerx, cornery)
 
 
-class MyTurtles(turtle.Turtle):
+class MyTurtles(turtle.Turtle, Vuegrille):
+    isturned = False
     def move(self, x, y):
-        self.setx(x)
-        self.sety(y)
+        corner = Vuegrille.getcorner(self, x, y)
+        self.setx(corner[0] + 5) #constante à déterminer
+        self.sety(corner[1] - 20)
 
-    def changeOrientation(self, x, y):
+    def changeOrientation(self, x, y): #TODO: est déja horizontal: on retourne comme avant avec Bateau.getOrientation?
         self.left(90)
+        corner = Vuegrille.getcorner(self, x, y)
+        self.setx(corner[0] + 20)
+        self.sety(corner[1] - 45)
 
 bateau1 = MyTurtles()
 bateau1.penup()
