@@ -1,52 +1,82 @@
-import Grille
+from Grille import Grille
 import turtle
 
-DEFAULT_SCREEN_WIDTH = 800
-DEFAULT_SCREEN_HEIGHT = 600
-DEFAULT_MARGIN = (DEFAULT_SCREEN_WIDTH // 16)
+DEFAULT_SCREEN_WIDTH = 1200
+DEFAULT_SCREEN_HEIGHT = 620
+DEFAULT_MARGIN = (DEFAULT_SCREEN_WIDTH // 25)
+
 
 class Vuegrille:
 
     def __init__(self):
         self.screen = turtle.Screen()
-        screen = self.screen
         self.screen.title("Bataille Navale")
         self.screen.listen()
         self.screen.onclick(self.getcoords, btn=1)
-        self.setScreenSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
-        self.setGrille()
+        self.setscreensize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
+        self.setgrille()
         turtle.done()
 
-    def setScreenSize(self, largeur, hauteur):
+    def setscreensize(self, largeur, hauteur):
         self.screen.setup(largeur, hauteur)
         self.screen.bgcolor('blue')
 
-    def setGrille(self):
-        print(DEFAULT_MARGIN)
-        animationGrille = turtle.Turtle()
-        animationGrille.penup()
-        animationGrille.speed(500)
-        animationGrille.setx(-DEFAULT_SCREEN_WIDTH / 2 + DEFAULT_MARGIN)
-        animationGrille.sety(DEFAULT_SCREEN_HEIGHT / 2 - DEFAULT_MARGIN)
-        animationGrille.right(90)
+    def setgrille(self):
+        animationgrille = turtle.Turtle()
+        animationgrille.penup()
+        animationgrille.speed(100)
+        animationgrille.setx(-DEFAULT_SCREEN_WIDTH / 2 + DEFAULT_MARGIN)
+        animationgrille.sety(DEFAULT_SCREEN_HEIGHT / 2 - DEFAULT_MARGIN)
+        animationgrille.right(90)
 
         for i in range(Grille.DEFAULT_SIZE + 1):
-            animationGrille.pendown()
-            animationGrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
-            animationGrille.penup()
-            animationGrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
-            animationGrille.setx(animationGrille.xcor() + DEFAULT_MARGIN)
+            animationgrille.pendown()
+            animationgrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
+            animationgrille.penup()
+            animationgrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
+            animationgrille.setx(animationgrille.xcor() + DEFAULT_MARGIN)
 
-        animationGrille.setx(-DEFAULT_SCREEN_WIDTH/2 + DEFAULT_MARGIN)
-        animationGrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
-        animationGrille.left(90)
+        animationgrille.setx(-DEFAULT_SCREEN_WIDTH/2 + DEFAULT_MARGIN)
+        animationgrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
+        animationgrille.left(90)
         for i in range(Grille.DEFAULT_SIZE + 1):
-            animationGrille.pendown()
-            animationGrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
-            animationGrille.penup()
-            animationGrille.sety(animationGrille.ycor() - DEFAULT_MARGIN)
-            animationGrille.setx(-DEFAULT_SCREEN_WIDTH / 2 + DEFAULT_MARGIN)
-        animationGrille.hideturtle()
+            animationgrille.pendown()
+            animationgrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
+            animationgrille.penup()
+            animationgrille.sety(animationgrille.ycor() - DEFAULT_MARGIN)
+            animationgrille.setx(-DEFAULT_SCREEN_WIDTH / 2 + DEFAULT_MARGIN)
+
+        animationgrille.penup()
+        animationgrille.setx(DEFAULT_MARGIN)
+        animationgrille.sety(DEFAULT_SCREEN_HEIGHT / 2 - DEFAULT_MARGIN)
+        animationgrille.right(90)
+
+        for i in range(Grille.DEFAULT_SIZE + 1):
+            animationgrille.pendown()
+            animationgrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
+            animationgrille.penup()
+            animationgrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
+            animationgrille.setx(animationgrille.xcor() + DEFAULT_MARGIN)
+
+        animationgrille.setx(DEFAULT_MARGIN)
+        animationgrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
+        animationgrille.left(90)
+        for i in range(Grille.DEFAULT_SIZE + 1):
+            animationgrille.pendown()
+            animationgrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
+            animationgrille.penup()
+            animationgrille.sety(animationgrille.ycor() - DEFAULT_MARGIN)
+            animationgrille.setx(DEFAULT_MARGIN)
+        animationgrille.hideturtle()
+        b1 = turtle.Turtle()
+        b1.penup()
+        b1.setx(0)
+        b1.sety(0)
+        b2x1 = ((0, 0), (2*DEFAULT_MARGIN, 0), (2*DEFAULT_MARGIN, DEFAULT_MARGIN), (0, DEFAULT_MARGIN))
+        turtle.addshape('b2x1', b2x1)
+        b1.shape('b2x1')
+        b1.color('black')
+        b1.ondrag(b1.goto)
 
     def getcoords(self, x, y):
         self.screen.onclick(None, btn=1)
@@ -55,28 +85,28 @@ class Vuegrille:
         grilley = int((y - (DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN))/(-DEFAULT_MARGIN))
         print(grillex, grilley, self.getcorner(x, y))
         self.screen.onclick(self.getcoords, btn=1)
-        return (grillex, grilley)
+        return grillex, grilley
 
     def getcorner(self, x, y):
-        if (x >= 0):
+        if x >= 0:
             cornerx = ((int(x/DEFAULT_MARGIN))*DEFAULT_MARGIN)
         else:
-            cornerx = ((int(x/DEFAULT_MARGIN)-1)*DEFAULT_MARGIN)
-        if (y>=0):
+            cornerx = ((int(x/DEFAULT_MARGIN)+1)*DEFAULT_MARGIN)
+        if y and x <= 0:
             cornery = ((int(y/DEFAULT_MARGIN)+1)*DEFAULT_MARGIN)
         else:
             cornery = ((int(y/DEFAULT_MARGIN))*DEFAULT_MARGIN)
-        return (cornerx, cornery)
+        return cornerx, cornery
 
 
 class MyTurtles(turtle.Turtle, Vuegrille):
     isturned = False
-    def move(self, x, y):
-        corner = Vuegrille.getcorner(self, x, y)
-        self.setx(corner[0] + 5) #constante à déterminer
-        self.sety(corner[1] - 20)
 
-    def changeOrientation(self, x, y): #TODO: est déja horizontal: on retourne comme avant avec Bateau.getOrientation?
+    def move(self, x, y):
+        self.setx(x) #constante à déterminer
+        self.sety(y)
+
+    def changeorientation(self, x, y): #TODO: est déja horizontal: on retourne comme avant avec Bateau.getOrientation?
         self.left(90)
         corner = Vuegrille.getcorner(self, x, y)
         self.setx(corner[0] + 20)
@@ -85,15 +115,15 @@ class MyTurtles(turtle.Turtle, Vuegrille):
 bateau1 = MyTurtles()
 bateau1.penup()
 bateau1.speed(500)
-bateau1.setx(200)
-bateau1.sety(200)
+bateau1.setx(0)
+bateau1.sety(0)
 bateauun = ((0, 0), (-5, 20), (0, 40), (60, 40), (65, 20), (60, 0))
 turtle.addshape('bateauun', bateauun)
 bateau1.shape('bateauun')
 bateau1.fillcolor('white')
 bateau1.penup()
 bateau1.ondrag(bateau1.move)
-bateau1.onrelease(bateau1.changeOrientation, 3)
+bateau1.onrelease(bateau1.changeorientation, 3)
 
 bateau2 = MyTurtles()
 bateau2.penup()
@@ -106,6 +136,6 @@ bateau2.shape('bateaudeux')
 bateau2.fillcolor('red')
 bateau2.penup()
 bateau2.ondrag(bateau2.move)
-bateau2.onrelease(bateau2.changeOrientation, 3)
+bateau2.onrelease(bateau2.changeorientation, 3)
 
 Vuegrille()

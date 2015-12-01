@@ -1,4 +1,4 @@
-class Bateau():
+class Bateau:
     def __init__(self, orientation,longueur, coordonnee, nom):
         self.orientation = orientation
         self.longueur = longueur
