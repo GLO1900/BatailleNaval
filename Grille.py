@@ -1,16 +1,19 @@
-DEFAULT_SIZE = 10
-DEFAULT_VALUE = (False, False)
-
 class Grille:
+    DEFAULT_SIZE = 10
+    DEFAULT_VALUE = 0
+    HIT_WATER = 1
+    UNDAMAGED_BOAT = 2
+    DAMAGED_BOAT = 3
+
     def __init__(self):
         self.value = []
-        for _ in range(DEFAULT_SIZE):
-            self.value.append([DEFAULT_VALUE for _ in range(DEFAULT_SIZE)])
+        for _ in range(Grille.DEFAULT_SIZE):
+            self.value.append([Grille.DEFAULT_VALUE for _ in range(Grille.DEFAULT_SIZE)])
 
     def __str__(self):
         string = ''
-        for i in range(DEFAULT_SIZE):
-            for j in range(DEFAULT_SIZE):
+        for i in range(Grille.DEFAULT_SIZE):
+            for j in range(Grille.DEFAULT_SIZE):
                 string += str(self.value[i][j]) + ' '
             string += '\n'
         return string

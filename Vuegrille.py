@@ -19,7 +19,7 @@ class Vuegrille:
 
     def setScreenSize(self, largeur, hauteur):
         self.screen.setup(largeur, hauteur)
-        self.screen.bgpic("ressources/ocean.gif")
+        self.screen.bgcolor("blue")
 
     def setGrille(self):
         print(DEFAULT_MARGIN)

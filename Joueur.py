@@ -1,7 +1,8 @@
 from Bateau import Bateau
 
 
-class Joueur():
+class Joueur:
+
     def __init__(self, nom):
         self.listeBateau = [Bateau(0, 2, (0, 0), 'Torpilleur'), Bateau(0, 3, (0, 0), 'Contre-Torpilleur')]
         self.nom = nom
