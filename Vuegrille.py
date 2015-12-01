@@ -19,7 +19,7 @@ class Vuegrille:
 
     def setScreenSize(self, largeur, hauteur):
         self.screen.setup(largeur, hauteur)
-        self.screen.bgcolor("blue")
+        self.screen.bgpic("ressources/ocean.gif")
 
     def setGrille(self):
         print(DEFAULT_MARGIN)
@@ -28,6 +28,15 @@ class Vuegrille:
         animationGrille.speed(500)
         animationGrille.setx(-DEFAULT_SCREEN_WIDTH / 2 + DEFAULT_MARGIN)
         animationGrille.sety(DEFAULT_SCREEN_HEIGHT / 2 - DEFAULT_MARGIN)
+
+        animationGrille.pendown()
+        animationGrille.fillcolor('orange')
+        animationGrille.begin_fill()
+        for i in range(4):
+            animationGrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
+            animationGrille.right(90)
+        animationGrille.end_fill()
+        animationGrille.penup()
         animationGrille.right(90)
 
         for i in range(Grille.DEFAULT_SIZE + 1):
