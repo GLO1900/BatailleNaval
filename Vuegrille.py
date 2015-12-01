@@ -1,5 +1,6 @@
 from Grille import Grille
 import turtle
+from Bateau import Bateau
 
 DEFAULT_SCREEN_WIDTH = 1200
 DEFAULT_SCREEN_HEIGHT = 620
@@ -19,7 +20,7 @@ class Vuegrille:
 
     def setscreensize(self, largeur, hauteur):
         self.screen.setup(largeur, hauteur)
-        self.screen.bgcolor('blue')
+        self.screen.bgcolor("blue")
 
     def setgrille(self):
         animationgrille = turtle.Turtle()
@@ -100,17 +101,34 @@ class Vuegrille:
 
 
 class MyTurtles(turtle.Turtle, Vuegrille):
-    isturned = False
+
+    def createBateau(self, longueur, coords, nom):
+        self.bateau = Bateau(False, longueur, coords, nom)
 
     def move(self, x, y):
-        self.setx(x) #constante à déterminer
-        self.sety(y)
-
-    def changeorientation(self, x, y): #TODO: est déja horizontal: on retourne comme avant avec Bateau.getOrientation?
-        self.left(90)
         corner = Vuegrille.getcorner(self, x, y)
-        self.setx(corner[0] + 20)
-        self.sety(corner[1] - 45)
+
+        if(self.bateau.getOrientation() == False):
+            self.setx(corner[0] + DEFAULT_MARGIN / 8)
+            self.sety(corner[1] - DEFAULT_MARGIN / 2)
+        else:
+            self.setx(corner[0] + DEFAULT_MARGIN / 2)
+            self.sety(corner[1] + DEFAULT_MARGIN / 8)
+
+    def changeOrientation(self, x, y):
+
+        if (self.bateau.getOrientation() == False):
+            self.left(90)
+            corner = Vuegrille.getcorner(self, x, y)
+            self.setx(corner[0] + 20)
+            self.sety(corner[1] - 45)
+            self.bateau.setOrientation(True)
+        else:
+            self.right(90)
+            corner = Vuegrille.getcorner(self, x, y)
+            self.setx(corner[0] + 5)
+            self.sety(corner[1] - 20)
+            self.bateau.setOrientation(False)
 
 bateau1 = MyTurtles()
 bateau1.penup()
@@ -120,10 +138,11 @@ bateau1.sety(0)
 bateauun = ((0, 0), (-5, 20), (0, 40), (60, 40), (65, 20), (60, 0))
 turtle.addshape('bateauun', bateauun)
 bateau1.shape('bateauun')
-bateau1.fillcolor('white')
 bateau1.penup()
+bateau1.fillcolor('white')
+bateau1.createBateau(2, bateau1.getcoords, "Torpilleur")
 bateau1.ondrag(bateau1.move)
-bateau1.onrelease(bateau1.changeorientation, 3)
+bateau1.onrelease(bateau1.changeOrientation, 3)
 
 bateau2 = MyTurtles()
 bateau2.penup()
@@ -135,6 +154,7 @@ turtle.addshape('bateaudeux', bateaudeux)
 bateau2.shape('bateaudeux')
 bateau2.fillcolor('red')
 bateau2.penup()
+bateau2.createBateau(3, bateau2.getcoords, "Blazeit")
 bateau2.ondrag(bateau2.move)
 bateau2.onrelease(bateau2.changeorientation, 3)
 
