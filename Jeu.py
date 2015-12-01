@@ -1,2 +1,1 @@
-class Jeu:
-    def jouercoup(self, joueur, adversaire, coords):
+print(int(-4/5))

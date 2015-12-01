@@ -2,9 +2,9 @@ from Grille import Grille
 import turtle
 from Bateau import Bateau
 
-DEFAULT_SCREEN_WIDTH = 1200
-DEFAULT_SCREEN_HEIGHT = 620
-DEFAULT_MARGIN = (DEFAULT_SCREEN_WIDTH // 25)
+DEFAULT_MARGIN = 40
+DEFAULT_SCREEN_WIDTH = 32*DEFAULT_MARGIN
+DEFAULT_SCREEN_HEIGHT = 12*DEFAULT_MARGIN
 
 
 class Vuegrille:
@@ -48,7 +48,7 @@ class Vuegrille:
             animationgrille.setx(-DEFAULT_SCREEN_WIDTH / 2 + DEFAULT_MARGIN)
 
         animationgrille.penup()
-        animationgrille.setx(DEFAULT_MARGIN)
+        animationgrille.setx(-DEFAULT_SCREEN_WIDTH/2 + 12*DEFAULT_MARGIN)
         animationgrille.sety(DEFAULT_SCREEN_HEIGHT / 2 - DEFAULT_MARGIN)
         animationgrille.right(90)
 
@@ -59,7 +59,7 @@ class Vuegrille:
             animationgrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
             animationgrille.setx(animationgrille.xcor() + DEFAULT_MARGIN)
 
-        animationgrille.setx(DEFAULT_MARGIN)
+        animationgrille.setx(-DEFAULT_SCREEN_WIDTH/2 + 12*DEFAULT_MARGIN)
         animationgrille.sety(DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN)
         animationgrille.left(90)
         for i in range(Grille.DEFAULT_SIZE + 1):
@@ -67,23 +67,18 @@ class Vuegrille:
             animationgrille.forward(DEFAULT_MARGIN * Grille.DEFAULT_SIZE)
             animationgrille.penup()
             animationgrille.sety(animationgrille.ycor() - DEFAULT_MARGIN)
-            animationgrille.setx(DEFAULT_MARGIN)
+            animationgrille.setx(-DEFAULT_SCREEN_WIDTH/2 + 12*DEFAULT_MARGIN)
         animationgrille.hideturtle()
-        b1 = turtle.Turtle()
-        b1.penup()
-        b1.setx(0)
-        b1.sety(0)
-        b2x1 = ((0, 0), (2*DEFAULT_MARGIN, 0), (2*DEFAULT_MARGIN, DEFAULT_MARGIN), (0, DEFAULT_MARGIN))
-        turtle.addshape('b2x1', b2x1)
-        b1.shape('b2x1')
-        b1.color('black')
-        b1.ondrag(b1.goto)
 
     def getcoords(self, x, y):
         self.screen.onclick(None, btn=1)
         print(x, y)
         grillex = int((x + (DEFAULT_SCREEN_WIDTH/2 - DEFAULT_MARGIN))/DEFAULT_MARGIN)
         grilley = int((y - (DEFAULT_SCREEN_HEIGHT/2 - DEFAULT_MARGIN))/(-DEFAULT_MARGIN))
+
+        if (x > -11*DEFAULT_MARGIN):
+            grillex -= 11
+
         print(grillex, grilley, self.getcorner(x, y))
         self.screen.onclick(self.getcoords, btn=1)
         return grillex, grilley
@@ -92,8 +87,8 @@ class Vuegrille:
         if x >= 0:
             cornerx = ((int(x/DEFAULT_MARGIN))*DEFAULT_MARGIN)
         else:
-            cornerx = ((int(x/DEFAULT_MARGIN)+1)*DEFAULT_MARGIN)
-        if y and x <= 0:
+            cornerx = ((int(x/DEFAULT_MARGIN)-1)*DEFAULT_MARGIN)
+        if y >= 0:
             cornery = ((int(y/DEFAULT_MARGIN)+1)*DEFAULT_MARGIN)
         else:
             cornery = ((int(y/DEFAULT_MARGIN))*DEFAULT_MARGIN)
@@ -156,6 +151,17 @@ bateau2.fillcolor('red')
 bateau2.penup()
 bateau2.createBateau(3, bateau2.getcoords, "Blazeit")
 bateau2.ondrag(bateau2.move)
-bateau2.onrelease(bateau2.changeorientation, 3)
+bateau2.onrelease(bateau2.changeOrientation, 3)
+
+b1 = MyTurtles()
+b1.penup()
+b1.setx(0)
+b1.sety(0)
+b2x1 = ((0, 0), (2*DEFAULT_MARGIN, 0), (2*DEFAULT_MARGIN, DEFAULT_MARGIN), (0, DEFAULT_MARGIN))
+turtle.addshape('b2x1', b2x1)
+b1.shape('b2x1')
+b1.color('black')
+b1.ondrag(b1.goto)
+b1.onrelease(b1.left(90))
 
 Vuegrille()
