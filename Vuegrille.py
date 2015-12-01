@@ -108,7 +108,7 @@ class MyTurtles(turtle.Turtle, Vuegrille):
     def move(self, x, y):
         corner = Vuegrille.getcorner(self, x, y)
 
-        if(self.bateau.getOrientation() == False):
+        if self.bateau.getOrientation() == False:
             self.setx(corner[0] + DEFAULT_MARGIN / 8)
             self.sety(corner[1] - DEFAULT_MARGIN / 2)
         else:
