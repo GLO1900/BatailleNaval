@@ -1,6 +1,7 @@
 from Grille import Grille
 import turtle
 from Bateau import Bateau
+import tkinter as tk
 
 DEFAULT_MARGIN = 40
 DEFAULT_SCREEN_WIDTH = 32*DEFAULT_MARGIN
@@ -15,7 +16,87 @@ class Vuegrille:
         self.screen.onclick(self.getcoords, btn=1)
         self.setScreenSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
         self.setGrille()
+        self.setButtons()
         turtle.done()
+
+    def setButtons(self):
+        #BOUTON PROTESTER
+        boutonP = MyTurtles()
+        boutonP.pu()
+        boutonP.setx(500)
+        boutonP.sety(-160)
+        boutonP.pd()
+        boutonP.pencolor('goldenrod')
+        boutonP.pensize(5)
+        boutonP.fillcolor('gray')
+        boutonP.begin_fill()
+
+        for i in range(2):
+            if(i == 1):
+                boutonP.fd(50)
+                boutonP.write('Protester', False, 'center', ('Arial', 14, 'bold'))
+                boutonP.fd(50)
+                boutonP.right(90)
+            else:
+                boutonP.fd(100)
+                boutonP.right(90)
+            boutonP.fd(30)
+            boutonP.right(90)
+
+        boutonP.end_fill()
+        boutonP.hideturtle()
+
+        #BOUTON ATTAQUER
+        boutonA = MyTurtles()
+        boutonA.pu()
+        boutonA.setx(500)
+        boutonA.sety(0)
+        boutonA.pd()
+        boutonA.pencolor('goldenrod')
+        boutonA.pensize(5)
+        boutonA.fillcolor('gray')
+        boutonA.begin_fill()
+
+        for i in range(2):
+            if(i == 1):
+                boutonA.fd(50)
+                boutonA.write('Attaquer', False, 'center', ('Arial', 14, 'bold'))
+                boutonA.fd(50)
+                boutonA.right(90)
+            else:
+                boutonA.fd(100)
+                boutonA.right(90)
+            boutonA.fd(30)
+            boutonA.right(90)
+
+        boutonA.end_fill()
+        boutonA.hideturtle()
+
+        #BOUTON RÉPONSE
+        boutonR = MyTurtles()
+        boutonR.pu()
+        boutonR.setx(500)
+        boutonR.sety(160)
+        boutonR.pd()
+        boutonR.pencolor('goldenrod')
+        boutonR.pensize(5)
+        boutonR.fillcolor('gray')
+        boutonR.begin_fill()
+
+        for i in range(2):
+            if(i == 1):
+                boutonR.fd(50)
+                boutonR.write('Répondre', False, 'center', ('Arial', 14, 'bold'))
+                boutonR.fd(50)
+                boutonR.right(90)
+            else:
+                boutonR.fd(100)
+                boutonR.right(90)
+            boutonR.fd(30)
+            boutonR.right(90)
+
+        boutonR.end_fill()
+        boutonR.hideturtle()
 
     def setScreenSize(self, largeur, hauteur):
         self.screen.setup(largeur, hauteur)
