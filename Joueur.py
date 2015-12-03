@@ -4,8 +4,11 @@ from Bateau import Bateau
 class Joueur:
 
     def __init__(self, nom):
-        self.listeBateau = [Bateau(0, 2, (0, 0), 'Torpilleur'), Bateau(0, 3, (0, 0), 'Contre-Torpilleur')]
+        self.listeBateau = []
         self.nom = nom
+
+    def addbateau(self, bateau):
+        self.listeBateau.append(bateau)
 
     def __str__(self):
         string = ''
