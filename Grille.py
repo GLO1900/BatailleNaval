@@ -25,4 +25,7 @@ class Grille:
         return self.value[ligne][col]
 
     def set(self, val, ligne, col):
-        self.value[ligne][col] = val
+        if((ligne >= 0) and (ligne < Grille.DEFAULT_SIZE) and (col >= 0) and (col < Grille.DEFAULT_SIZE)):
+            self.value[ligne][col] = val
+        else:
+            raise ValueError

@@ -13,6 +13,8 @@ SPEED = 0
 class Vuegrille:
     def __init__(self):
 
+        self.jeu = Jeu()
+        self.listeBateauJoueur1 = []
         self.screen = turtle.Screen()
         self.screen.title("Bataille Navale")
         self.screen.listen()
@@ -20,17 +22,18 @@ class Vuegrille:
         self.setScreenSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
         self.setGrille()
         self.setButtons()
-        self.jeu = Jeu()
         self.start()
-        turtle.done()
+        self.boutonC.onclick(self.creerJeu)
+        self.screen.listen()
+        self.screen.mainloop()
 
     def start(self):
 
-        bateau1 = MyTurtles()
-        bateau1.penup()
-        bateau1.speed(SPEED)
-        bateau1.setx(300)
-        bateau1.sety(200)
+        self.bateau1 = MyTurtles()
+        self.bateau1.penup()
+        self.bateau1.speed(SPEED)
+        self.bateau1.setx(300)
+        self.bateau1.sety(200)
         bateauun = ((0, 0),
 
                     ((0 - 5), (DEFAULT_MARGIN - DEFAULT_MARGIN / 4) / 2),
@@ -43,18 +46,19 @@ class Vuegrille:
 
                     ((DEFAULT_MARGIN * 2) - DEFAULT_MARGIN / 2, 0))
         turtle.addshape('bateauun', bateauun)
-        bateau1.shape('bateauun')
-        bateau1.penup()
-        bateau1.fillcolor('white')
-        bateau1.createBateau(2, bateau1.getcoords, "Torpilleur")
-        bateau1.ondrag(bateau1.move)
-        bateau1.onrelease(bateau1.changeOrientation, 3)
+        self.bateau1.shape('bateauun')
+        self.bateau1.penup()
+        self.bateau1.fillcolor('white')
+        self.bateau1.createBateau(2, self.bateau1.getcoords(self.bateau1.xcor(), self.bateau1.ycor()), "Torpilleur")
+        self.listeBateauJoueur1.append(self.bateau1.bateau)
+        self.bateau1.ondrag(self.bateau1.move)
+        self.bateau1.onrelease(self.bateau1.changeOrientation, 3)
 
-        bateau2 = MyTurtles()
-        bateau2.penup()
-        bateau2.speed(SPEED)
-        bateau2.setx(250)
-        bateau2.sety(200)
+        self.bateau2 = MyTurtles()
+        self.bateau2.penup()
+        self.bateau2.speed(SPEED)
+        self.bateau2.setx(250)
+        self.bateau2.sety(200)
         bateaudeux = ((0, 0),
 
                       ((0 - 5), (DEFAULT_MARGIN - DEFAULT_MARGIN / 4) / 2),
@@ -67,18 +71,19 @@ class Vuegrille:
 
                       ((DEFAULT_MARGIN * 3) - DEFAULT_MARGIN / 2, 0))
         turtle.addshape('bateaudeux', bateaudeux)
-        bateau2.shape('bateaudeux')
-        bateau2.fillcolor('red')
-        bateau2.penup()
-        bateau2.createBateau(3, bateau2.getcoords, "Sous-Marin")
-        bateau2.ondrag(bateau2.move)
-        bateau2.onrelease(bateau2.changeOrientation, 3)
+        self.bateau2.shape('bateaudeux')
+        self.bateau2.fillcolor('red')
+        self.bateau2.penup()
+        self.bateau2.createBateau(3, self.bateau2.getcoords(self.bateau2.xcor(), self.bateau2.ycor()), "Sous-Marin")
+        self.listeBateauJoueur1.append(self.bateau2.bateau)
+        self.bateau2.ondrag(self.bateau2.move)
+        self.bateau2.onrelease(self.bateau2.changeOrientation, 3)
 
-        bateau3 = MyTurtles()
-        bateau3.penup()
-        bateau3.speed(SPEED)
-        bateau3.setx(350)
-        bateau3.sety(200)
+        self.bateau3 = MyTurtles()
+        self.bateau3.penup()
+        self.bateau3.speed(SPEED)
+        self.bateau3.setx(350)
+        self.bateau3.sety(200)
         bateautrois = ((0, 0),
 
                       ((0 - 5), (DEFAULT_MARGIN - DEFAULT_MARGIN / 4) / 2),
@@ -91,18 +96,19 @@ class Vuegrille:
 
                       ((DEFAULT_MARGIN * 3) - DEFAULT_MARGIN / 2, 0))
         turtle.addshape('bateautrois', bateautrois)
-        bateau3.shape('bateautrois')
-        bateau3.fillcolor('yellow')
-        bateau3.penup()
-        bateau3.createBateau(3, bateau3.getcoords, "Contre-Torpilleur")
-        bateau3.ondrag(bateau3.move)
-        bateau3.onrelease(bateau3.changeOrientation, 3)
+        self.bateau3.shape('bateautrois')
+        self.bateau3.fillcolor('yellow')
+        self.bateau3.penup()
+        self.bateau3.createBateau(3, self.bateau3.getcoords(self.bateau3.xcor(), self.bateau3.ycor()), "Contre-Torpilleur")
+        self.listeBateauJoueur1.append(self.bateau3.bateau)
+        self.bateau3.ondrag(self.bateau3.move)
+        self.bateau3.onrelease(self.bateau3.changeOrientation, 3)
 
-        bateau4 = MyTurtles()
-        bateau4.penup()
-        bateau4.speed(SPEED)
-        bateau4.setx(250)
-        bateau4.sety(0)
+        self.bateau4 = MyTurtles()
+        self.bateau4.penup()
+        self.bateau4.speed(SPEED)
+        self.bateau4.setx(250)
+        self.bateau4.sety(0)
         bateauquatre = ((0, 0),
 
                       ((0 - 5), (DEFAULT_MARGIN - DEFAULT_MARGIN / 4) / 2),
@@ -115,18 +121,19 @@ class Vuegrille:
 
                       ((DEFAULT_MARGIN * 4) - DEFAULT_MARGIN / 2, 0))
         turtle.addshape('bateauquatre', bateauquatre)
-        bateau4.shape('bateauquatre')
-        bateau4.fillcolor('black')
-        bateau4.penup()
-        bateau4.createBateau(3, bateau4.getcoords, "Croiseur")
-        bateau4.ondrag(bateau4.move)
-        bateau4.onrelease(bateau4.changeOrientation, 3)
+        self.bateau4.shape('bateauquatre')
+        self.bateau4.fillcolor('black')
+        self.bateau4.penup()
+        self.bateau4.createBateau(4, self.bateau4.getcoords(self.bateau4.xcor(), self.bateau4.ycor()), "Croiseur")
+        self.listeBateauJoueur1.append(self.bateau4.bateau)
+        self.bateau4.ondrag(self.bateau4.move)
+        self.bateau4.onrelease(self.bateau4.changeOrientation, 3)
 
-        bateau5 = MyTurtles()
-        bateau5.penup()
-        bateau5.speed(SPEED)
-        bateau5.setx(300)
-        bateau5.sety(0)
+        self.bateau5 = MyTurtles()
+        self.bateau5.penup()
+        self.bateau5.speed(SPEED)
+        self.bateau5.setx(300)
+        self.bateau5.sety(0)
         bateaucinq = ((0, 0),
 
                       ((0 - 5), (DEFAULT_MARGIN - DEFAULT_MARGIN / 4) / 2),
@@ -139,42 +146,43 @@ class Vuegrille:
 
                       ((DEFAULT_MARGIN * 5) - DEFAULT_MARGIN / 2, 0))
         turtle.addshape('bateaucinq', bateaucinq)
-        bateau5.shape('bateaucinq')
-        bateau5.fillcolor('gray')
-        bateau5.penup()
-        bateau5.createBateau(3, bateau3.getcoords, "Porte-Avion")
-        bateau5.ondrag(bateau5.move)
-        bateau5.onrelease(bateau5.changeOrientation, 3)
+        self.bateau5.shape('bateaucinq')
+        self.bateau5.fillcolor('gray')
+        self.bateau5.penup()
+        self.bateau5.createBateau(5, self.bateau5.getcoords(self.bateau5.xcor(), self.bateau5.ycor()), "Porte-Avion")
+        self.listeBateauJoueur1.append(self.bateau5.bateau)
+        self.bateau5.ondrag(self.bateau5.move)
+        self.bateau5.onrelease(self.bateau5.changeOrientation, 3)
 
 
 
     def setButtons(self):
         # BOUTON PROTESTER
-        boutonP = MyTurtles()
-        boutonP.speed(SPEED)
-        boutonP.pu()
-        boutonP.setx(450)
-        boutonP.sety(-160)
-        boutonP.pd()
-        boutonP.pencolor('goldenrod')
-        boutonP.pensize(5)
-        boutonP.fillcolor('gray')
-        boutonP.begin_fill()
+        self.boutonP = MyTurtles()
+        self.boutonP.speed(SPEED)
+        self.boutonP.pu()
+        self.boutonP.setx(450)
+        self.boutonP.sety(-160)
+        self.boutonP.pd()
+        self.boutonP.pencolor('goldenrod')
+        self.boutonP.pensize(5)
+        self.boutonP.fillcolor('gray')
+        self.boutonP.begin_fill()
 
         for i in range(2):
             if (i == 1):
-                boutonP.fd(75)
-                boutonP.write('Protester', False, 'center', ('Arial', 14, 'bold'))
-                boutonP.fd(75)
-                boutonP.right(90)
+                self.boutonP.fd(75)
+                self.boutonP.write('Protester', False, 'center', ('Arial', 14, 'bold'))
+                self.boutonP.fd(75)
+                self.boutonP.right(90)
             else:
-                boutonP.fd(150)
-                boutonP.right(90)
-            boutonP.fd(30)
-            boutonP.right(90)
+                self.boutonP.fd(150)
+                self.boutonP.right(90)
+            self.boutonP.fd(30)
+            self.boutonP.right(90)
 
-        boutonP.end_fill()
-        boutonP.hideturtle()
+        self.boutonP.end_fill()
+        self.boutonP.hideturtle()
 
         # BOUTON ATTAQUER
         boutonA = MyTurtles()
@@ -231,31 +239,31 @@ class Vuegrille:
         boutonR.hideturtle()
 
         # BOUTON COMMENCER
-        boutonC = MyTurtles()
-        boutonC.speed(SPEED)
-        boutonC.pu()
-        boutonC.setx(450)
-        boutonC.sety(80)
-        boutonC.pd()
-        boutonC.pencolor('goldenrod')
-        boutonC.pensize(5)
-        boutonC.fillcolor('gray')
-        boutonC.begin_fill()
+        self.boutonC = MyTurtles()
+        self.boutonC.speed(SPEED)
+        self.boutonC.pu()
+        self.boutonC.setx(450)
+        self.boutonC.sety(80)
+        self.boutonC.pd()
+        self.boutonC.pencolor('goldenrod')
+        self.boutonC.pensize(5)
+        self.boutonC.fillcolor('gray')
+        self.boutonC.begin_fill()
 
         for i in range(2):
             if (i == 1):
-                boutonC.fd(75)
-                boutonC.write('Commencer', False, 'center', ('Arial', 14, 'bold'))
-                boutonC.fd(75)
-                boutonC.right(90)
+                self.boutonC.fd(75)
+                self.boutonC.write('Commencer', False, 'center', ('Arial', 14, 'bold'))
+                self.boutonC.fd(75)
+                self.boutonC.right(90)
             else:
-                boutonC.fd(150)
-                boutonC.right(90)
-            boutonC.fd(30)
-            boutonC.right(90)
+                self.boutonC.fd(150)
+                self.boutonC.right(90)
+            self.boutonC.fd(30)
+            self.boutonC.right(90)
 
-        boutonC.end_fill()
-        boutonC.onclick(boutonC.creerJeu)
+        self.boutonC.end_fill()
+        self.boutonC.shape('square')
 
 
 
@@ -348,6 +356,9 @@ class Vuegrille:
             cornery = ((int(y / DEFAULT_MARGIN)) * DEFAULT_MARGIN)
         return cornerx, cornery
 
+    def creerJeu(self, x, y):
+        self.jeu.start(self.listeBateauJoueur1, self.listeBateauJoueur1)
+
 
 
 
@@ -366,6 +377,8 @@ class MyTurtles(turtle.Turtle, Vuegrille):
             self.setx(corner[0] + DEFAULT_MARGIN / 4)
             self.sety(corner[1] + DEFAULT_MARGIN / 8)
 
+        self.bateau.setCoordonnee(self.getcoords(x, y))
+
     def changeOrientation(self, x, y):
 
         if (self.bateau.getOrientation() == False):
@@ -381,4 +394,4 @@ class MyTurtles(turtle.Turtle, Vuegrille):
             self.sety(corner[1] - (DEFAULT_MARGIN / 4))
             self.bateau.setOrientation(False)
 
-Vuegrille()
+v = Vuegrille()

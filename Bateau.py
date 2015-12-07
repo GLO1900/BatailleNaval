@@ -14,14 +14,17 @@ class Bateau:
     def setLongueur(self, paramlongueur):
         self.longueur = paramlongueur
 
-    def getlongueur(self):
+    def getLongueur(self):
         return self.longueur
 
     def setCoordonnee(self, paramcoordonnee):
         self.coordonnee = paramcoordonnee
 
-    def getCoordonnee(self):
-        return self.coordonnee
+    def getCoordonneex(self):
+        return self.coordonnee[0]
+
+    def getCoordonneey(self):
+        return self.coordonnee[1]
 
     def setNom(self, paramnom):
         self.nom = paramnom
